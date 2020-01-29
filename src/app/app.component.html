@@ -1,0 +1,143 @@
+<h1>Hola Mundo</h1>
+<h2>
+  {{ mensaje }}
+</h2>
+<h3>{{ 'Mi nombre es: ' + getNombre()}}</h3>
+<app-prueba></app-prueba>
+<cursos></cursos>
+<img src = "{{imagenURL}}"><br/>
+
+<!-- Property binding-->
+<img [src] = "imagenURL"><br/>
+<button [disabled] = "buttonStatus">Mi boton</button><br/>
+
+<!--Class Binding-->
+<button [class.activo] = "isActive"> Mi otro boton</button><br/>
+
+<!--Style Binding-->
+<button [style.borderColor] = "isActive ? 'green' : 'white' "> Mi otro boton</button><br/>
+
+<!--Event Binding-->
+<button (mouseover) = "save($event)">Guardar</button><br/>
+
+<!--Event Filtering-->
+
+<input type ="text" (keyup.enter) = onKeyUp()><br/>
+
+<!--Template variable-->
+<input type ="text" (keyup.enter) = onKeyUp(nombre.value) #nombre><br/>
+
+<!--two way dat binding-->
+<input type="text"[(ngModel)] = "persona.nombre">
+<p>{{persona.nombre}}</p>
+
+<!--Input property-->
+
+<app-usuario [personaP] = "persona"></app-usuario>
+
+<!--Output decorator-->
+<app-usuario [personaP] = "persona" (enviar) = "getMensaje($event)"></app-usuario>
+<h1>{{info}}</h1><br/>
+
+<!--Boostrap-->
+<button class="btn btn-primary"> Mi otro otro boton</button>
+<!--ngIf-->
+<div *ngIf = "isValid"> Sí es valido</div>
+<div *ngIf = "!isValid"> No es valido</div>
+<div *ngIf = "2 + 4 ==6"> Correcto</div>
+
+<div *ngIf = "cursos.length === 0"> No hay cursos</div>
+<div *ngIf = "!cursos.length"> No hay cursos</div>
+<div *ngIf = "cursos.length > 0; then siCursos else noCursos"></div>
+
+<ng-template #siCursos>Sí hay cursos</ng-template>
+<ng-template #noCursos>No hay cursos</ng-template>
+
+<!--Hidden-->
+<div hidden>Tengo varios cursos</div>
+
+<div [hidden] = "!cursos.length">Tengo varios cursos</div>
+<div [hidden] = "cursos.length">No tengo varios cursos</div>
+
+<!--For-->
+<ul>
+<li *ngFor = "let personaX of personas">{{personaX}}</li>
+
+</ul>
+<button (click)="onAgregar()">Agregar</button>
+<ul>
+  <li *ngFor = "let personaX of personas2">{{personaX.nombre}} tiene {{personaX.edad}}
+    <button (click)="onBorrar(personaX)">Borrar</button>
+    <button (click)="onActualizar(personaX)">Actualizar</button>
+  </li>
+  
+  </ul>
+
+  <!--Switch-->
+
+  <ul *ngFor = "let personaX of personas2" [ngSwitch]="personaX.hobby">
+    <li *ngSwitchCase="'correr'" class="text-primary" >
+      {{personaX.nombre}} tiene {{personaX.edad}} 
+    </li>
+    <li *ngSwitchCase="'nadar'" class="text-danger" >
+      {{personaX.nombre}} tiene {{personaX.edad}} 
+    </li>
+    <li *ngSwitchCase="'leer'" class="text-success" >
+      {{personaX.nombre}} tiene {{personaX.edad}} 
+    </li>
+    <li *ngSwitchCase="'escalar'" class="text-warning" >
+      {{personaX.nombre}} tiene {{personaX.edad}} 
+    </li>
+    <li *ngSwitchDefault class="text-warning" >
+      {{personaX.nombre}} tiene {{personaX.edad}} 
+    </li>
+    </ul>
+
+    <!--ngStyle-->
+    <div [ngStyle] = "{'backgroundColor':'yellow','color':'red', 'font-size.px': '40'}">Hola</div>
+    <div [ngStyle] = "{'backgroundColor': isActive? 'yellow' : 'red'}">Hallo</div>
+    <ul *ngFor = "let personaX of personas2">
+      <li [ngStyle]="{'color': getColor(personaX.hobby)}" >{{personaX.nombre}}
+      </li>
+      </ul>
+
+    <!--ngClass-->
+    <div class = "mi-clase-1 mi-clase-2">Hola Mundo</div>
+    <div [ngClass] = "'mi-clase-3'">Hola Mundo</div>
+
+    <div [ngClass] = "{
+      'mi-clase-2': isActive,
+      'mi-clase-3': personas2[personas2.length-1].nombre==='Manuel'
+    }">Hola Mundo</div>
+
+    <!--Directiva-->
+    <div>
+      <input type="radio" name="colores" (click) ="color='green'">Green
+      <input type="radio" name="colores" (click) ="color='blue'">Blue
+      <input type="radio" name="colores" (click) ="color='gray'">Gray
+    </div>
+    <div [appCambiarColor]="color">Código Mentor</div>
+
+    <!--safe navigation operator-->
+    <div>{{personaS.trabajo?.telefono}}</div>
+
+    <!--PIPES-->
+    <div> {{personas2[1].nombre | uppercase}} </div>
+    <div> {{personas2[1].edad | currency}} </div>
+
+    <!--pipe creado-->
+    <div> {{personas2[1].nombre | resumir}} </div>
+    <div> {{personas2[1].nombre | resumir:4}} </div>
+
+    <!--servicios-->
+    <ul>
+      <li *ngFor = "let personaX of personaSer">{{personaX.nombre}}</li>
+      
+      </ul>
+
+    <ul class="list-group">
+      <li *ngFor="let post of listaDePosts" class="list-group-item">
+        {{post.title}}
+      </li>
+    </ul>
+      
